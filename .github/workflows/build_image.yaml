@@ -24,9 +24,6 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install -r user_api/requirements.txt
           pip install requests pytest
-      
-      - name: Run Tests
-        run: |
           pytest user_api/test_main.py -v
 
   build:
