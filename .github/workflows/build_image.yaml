@@ -21,7 +21,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests pytest flake8
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f user_api/requirements.txt ]; then pip install -r user_api/requirements.txt; fi
       
       - name: Lint with flake8
         run: |
