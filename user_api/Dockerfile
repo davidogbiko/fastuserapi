@@ -2,7 +2,7 @@ FROM python:3.10-slim-bullseye
 
 WORKDIR /userapi
 
-COPY ./requirements-dev.txt  /userapi/requirements.txt
+COPY ./requirements.txt  /userapi/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /userapi/requirements.txt
 
