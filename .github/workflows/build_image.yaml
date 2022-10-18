@@ -1,0 +1,52 @@
+name: Build UserAPI Image
+on:
+  push:
+    paths:
+      - .github/workflows/build_image.yaml
+      - user_api
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout Code
+      
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10.x"
+      
+      - name: Setup Virtual Environment
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r user_api/requirements.txt
+      
+      - name: Run Tests
+        run: |
+          pytest user_api/test_main.py -v
+
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout Code
+
+      - uses: docker/login-action@v1
+        name: Login to Dockerhub
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Build and push image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./user_api
+          push: true
+          tags: |
+            davidogbiko/fastuserapi:${{ github.sha }}

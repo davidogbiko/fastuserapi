@@ -1,0 +1,5 @@
+services:
+  userapi:
+    build: .
+    ports:
+      - "8080:80"

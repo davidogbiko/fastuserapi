@@ -1,0 +1,10 @@
+# VSCode settings
+.vscode
+
+# Python related files
+__pycache__
+.pytest_cache
+venv
+
+# Local environment files
+*.db
