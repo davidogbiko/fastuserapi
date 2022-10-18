@@ -2,10 +2,8 @@ name: Build UserAPI Image
 on:
   push:
     paths:
+      - user_api/**
       - .github/workflows/build_image.yaml
-      - user_api
-    branches:
-      - main
 
 jobs:
   test:
