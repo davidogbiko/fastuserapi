@@ -132,5 +132,6 @@ curl -X 'POST' \
 - The workflow is currently set to be triggered manually.
 - To run this workflow, the `DATABASE_URL` and `KUBECONFIG` need to be set in Github Secrets for the project repository.
 - Once this is done, trigger the workflow to deploy the application to a kubernetes cluster
+- Docker images built through the `build_image.yaml` workflow are automatically pushed to [davidogbiko/fastuserapi](https://hub.docker.com/r/davidogbiko/fastuserapi)
 
 *NB*: Production deployment will fail for now till kubeconfig is configured.
