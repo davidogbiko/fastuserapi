@@ -1,6 +1,3 @@
-replicaCount: 1
-configMapDir:
-
 image:
   repository: davidogbiko/fastuserapi
   version: 0.0.1
@@ -9,17 +6,6 @@ image:
 deployment:
   appName: userapi
   replicas: 1
-
-podSecurityContext:
-  fsGroup: 2000
-
-securityContext:
-  capabilities:
-    drop:
-    - ALL
-  readOnlyRootFilesystem: true
-  runAsNonRoot: true
-  runAsUser: 1000
 
 service:
   type: NodePort
@@ -32,3 +18,5 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
+
+database: database

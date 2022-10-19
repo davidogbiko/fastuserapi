@@ -1,26 +1,49 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: userapi
-  namespace: userapi
+  name: {{ .Values.deployment.appName }}
+  namespace: {{ .Values.deployment.appName }}
 spec:
   selector:
     matchLabels:
-      run: userapi
-  replicas: 1
+      run: {{ .Values.deployment.appName }}
+  replicas: {{ .Values.deployment.replicas }}
   template:
     metadata:
       labels:
-        run: userapi
+        run: {{ .Values.deployment.appName }}
     spec:
       containers:
-      - name: userapi
-        image: davidogbiko/fastuserapi
+      - name: {{ .Values.deployment.appName }}
+        image: {{ .Values.image.repository }}
         imagePullPolicy: Always
+        env:
+          - name: "DATABASE_URL"
+            valueFrom:
+              secretKeyRef:
+                key: database
+                name: {{ .Values.deployment.appName }}
         ports:
-        - containerPort: 80
+        - containerPort: {{ .Values.service.port }}
         resources:
           limits:
-            cpu: 500m
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
           requests:
-            cpu: 200m
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.service.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+...

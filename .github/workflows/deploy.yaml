@@ -28,7 +28,7 @@ jobs:
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
           DATABASE_URL: '${{ secrets.DATABASE_URL }}'
-        run: helm upgrade --install userapi --set image.tag=${{ github.sha }} ./kubernetes/helm -n userapi
+        run: helm upgrade --install userapi --set database=$DATABASE_URL--set image.tag=${{ github.sha }} ./kubernetes/helm -n userapi
 
       - name: Clean workspace
         uses: AutoModality/action-clean@v1.1.0
