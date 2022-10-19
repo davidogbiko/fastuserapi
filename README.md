@@ -133,4 +133,4 @@ curl -X 'POST' \
 - To run this workflow, the `DATABASE_URL` and `KUBECONFIG` need to be set in Github Secrets for the project repository.
 - Once this is done, trigger the workflow to deploy the application to a kubernetes cluster
 
-*NB*: Production deployment will fail fow now till kubeconfig is configured.
+*NB*: Production deployment will fail for now till kubeconfig is configured.
